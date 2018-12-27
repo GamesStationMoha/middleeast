@@ -129,7 +129,7 @@ client.on("message", message => {
 //mute
 client.on("message", message => {
   let command = message.content.split(" ")[0];
-  if (command === prefix + "mute" }  {
+  if (command === prefix + "mute")  {
           if(!message.channel.guild) return message.reply('**:x: اسف لكن هذا الامر للسيرفرات فقط **');
                   if (!message.member.hasPermission('MANAGE_ROLES')) return message.reply("** لا يوجد لديك برمشن 'Manage Roles' **");
   let user = message.mentions.users.first();
@@ -157,7 +157,7 @@ client.on("message", message => {
   }
 
 };
-    if (command === prefix + "unmute" }  {
+    if (command === prefix + "unmute")  {
           if(!message.channel.guild) return message.reply('**:x: اسف لكن هذا الامر للسيرفرات فقط **');         
         if (!message.member.hasPermission('MANAGE_ROLES')) return message.reply("** لا يوجد لديك برمشن 'Manage Roles' **");
   let user = message.mentions.users.first();
