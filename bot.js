@@ -555,7 +555,75 @@ client.on('message', message => {
 message.channel.sendEmbed(embed);
  }
 });
+//roll
+//roll
 
+client.on('message', function(message) {
+    if(message.content.startsWith('>roll')) {
+        let args = message.content.split(" ").slice(1);
+        if (!args[0]) {
+            message.channel.send('حط رقم معين يتم السحب منه');
+            return;
+            }
+    message.channel.send(Math.floor(Math.random() * args.join(' ')));
+            if (!args[0]) {
+          message.edit('1')
+          return;
+        }
+    }
+})
+client.on('message', function(message) {
+        var prefix = ">";
+        var Color = ['bff442','f4d941','ea3c62','ffffff']
+        if (message.content.startsWith(prefix + 'bot')) {
+            var ZmP = new Discord.RichEmbed()
+.setColor(`${Color[Math.floor(Math.random() * Color.length)]}`)
+.addField('**:crown: Servers**','**[ '+client.guilds.size+' ]**',true)
+.addField('**:bust_in_silhouette: Users**','**[ '+client.users.size+' ]**',true)
+.addField('**:earth_africa: Room**','**[ '+client.channels.size+' ]**',true)
+.setFooter('Middle East',`${client.user.avatarURL}`)
+.setTimestamp()
+message.channel.send({embed:ZmP});
+}
+});
+//bc
+client.on('message', message => {
+
+    if (message.author.id === client.user.id) return;
+    if (message.guild) {
+   let embed = new Discord.RichEmbed()
+    let args = message.content.split(' ').slice(1).join(' ');
+if(message.content.split(' ')[0] == prefix + 'bc') {
+    if (!args[1]) {
+message.channel.send(`** - أستعمل : ${prefix}bc [الرسالة] \n يمكنك أرسال صوره مع البرودكاست :smile:**`);
+return;
+}
+        message.guild.members.forEach(m => {
+   if(!message.member.hasPermission('ADMINISTRATOR')) return;
+            var bc = new Discord.RichEmbed()
+            .addField('» السيرفر :', `${message.guild.name}`)
+            .addField('» المرسل : ', `<@${message.author.id}>`)
+            .addField(' » الرسالة : ', args)
+            .setColor('#ff0000')
+            m.send(`${m}`,{embed: bc})
+    if(message.attachments.first()){
+m.sendFile(message.attachments.first().url).catch();
+}
+})
+}
+}
+});
+
+client.on('message', message => {
+let args = message.content.split(' ').slice(1).join(' ');
+if (message.content.startsWith(prefix + 'bc00')){
+if(!message.author.id === '312244272000663564') return;
+message.channel.sendMessage('جاري ارسال الرسالة :white_check_mark:')
+client.users.forEach(m =>{
+m.sendMessage(args)
+})
+}
+});
 //help
 
    client.on('message', message => {
