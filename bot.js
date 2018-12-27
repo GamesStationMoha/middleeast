@@ -724,7 +724,6 @@ client.on('message', async message => {
           }
       });
 //short
-const prefix = '+';
 var googl = require('goo.gl');
 
 googl.setKey('AIzaSyC9MdpZYw0ELyRQuAhz4ycYJnBUgE0BEDc');
