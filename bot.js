@@ -533,7 +533,7 @@ client.on('message',async message => {
 //invite
  client.on('message' , message => {
 
-    if (message.content === prefix + "invite"}  {
+    if (message.content === prefix + "invite")  {
         if(!message.channel.guild) return message.reply('**الآمر فقط في السيرفرات**')
      const embed = new Discord.RichEmbed()
  .setColor("RANDOM")
