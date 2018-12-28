@@ -624,15 +624,68 @@ m.sendMessage(args)
 })
 }
 });
+//topinvites
+client.on('message', message => {
+             if (!message.channel.guild) return;
+      if (message.author.bot) return;
+
+  if (!message.content.startsWith(prefix)) return;
+  let command = message.content.split(" ")[0];
+  command = command.slice(prefix.length);
+  let args = message.content.split(" ").slice(1);
+  
+  if (command === 'invites') {
+    message.guild.fetchInvites().then(invs => {
+      let member = client.guilds.get(message.guild.id).members.get(message.author.id);
+      let personalInvites = invs.filter(i => i.inviter.id === message.author.id);
+      let inviteCount = personalInvites.reduce((p, v) => v.uses + p, 0);
+    return message.reply(`**${inviteCount}: عدد الاشخاص الذي دعوتهم هو**`)
+
+});
+}});   
+ 
+        const arraySort = require('array-sort'), // npm i array-sort
+          table = require('table'); //npm i taple
+
+client.on('message' , async (message) => {
+
+ if(message.content.split(' ')[0].toLowerCase() == prefix + 'top') {
+                 if(message.author.bot) return;
+        if(!message.channel.guild) return message.reply(' Error : \` Guild Command \`');
+
+  var invites = await message.guild.fetchInvites();
+
+    invites = invites.array();
+
+    arraySort(invites, 'uses', { reverse: true });
+
+    let possibleInvites = ['User Invited |  Uses '];
+    invites.forEach(i => {
+        if (i.uses === 0) { 
+            return;
+            
+        }
+      possibleInvites.push(['\n\ ' +'<@'+ i.inviter.id +'>' + '  :  ' +   i.uses]);
+    
+     
+    })
+    
+    const embed = new Discord.RichEmbed()
+ .setColor('#36393e')
+    .addField("Top Invites." ,`${(possibleInvites)}`)
+
+    message.channel.send(embed)
+    }
+});
 //voice
-client.on('message', async message => {
-  if(message.content.startsWith(prefix + "voice")) {
+      client.on('message', async message => {
+  if(message.content.startsWith(prefix + "voicesetup")) {
   if(!message.guild.member(message.author).hasPermissions('MANAGE_CHANNELS')) return message.reply(':x: **ليس لديك الصلاحيات الكافية**');
   if(!message.guild.member(client.user).hasPermissions(['MANAGE_CHANNELS','MANAGE_ROLES_OR_PERMISSIONS'])) return message.reply(':x: **ليس معي الصلاحيات الكافية**');
   var args = message.content.split(' ').slice(1).join(' ');
-  if(args && !args.includes(0)) return message.channel.send('**:negative_squared_cross_mark: » فشل اعداد الروم الصوتي .. __يجب عليك كتابة 0 في اسم الروم__**');
-  if(!args) args = ` » VoiceOnline :  ${message.guild.members.filter(s => s.voiceChannel).size} . `;
-  message.channel.send('**:white_check_mark: » تم عمل الروم الصوتي بنجاح**');
+  if(args && !args.includes(0)) return message.channel.send(':negative_squared_cross_mark: » فشل اعداد الروم الصوتي .. __يجب عليك كتابة 0 في اسم الروم__');
+  if(!args) args = `VoiceOnline: [ ${message.guild.members.filter(s => s.voiceChannel).size} ]`;
+  message.channel.send(':white_check_mark: » تم عمل الروم الصوتي بنجاح');
   message.guild.createChannel(`${args.replace(0, message.guild.members.filter(s => s.voiceChannel).size)}`, 'voice').then(c => {
     c.overwritePermissions(message.guild.id, {
       CONNECT: false,
@@ -645,7 +698,6 @@ client.on('message', async message => {
     },3000);
   });
   }
-
 });
 //temp
 const temp = {};
